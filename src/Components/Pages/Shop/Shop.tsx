@@ -2,10 +2,10 @@ import {ShopCard} from "./ShopCard"
 import { useContext, useEffect, useState } from 'react'
 import {getProducts} from './Request.js'
 import CartContext from "./CartContext.js"
-
+import { Product } from "./ShopCard"
 export const Shop = () => {
-    const [products, setProducts] = useState([{}])
-    const [productCount, setProductCount] = useContext(CartContext)
+    const [products, setProducts] = useState([{} as Product])
+    const {productCount} = useContext(CartContext)
 
 
     let productList = products

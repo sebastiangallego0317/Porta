@@ -1,22 +1,29 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
 
- const CartContext = createContext({})
+const CartContext = createContext({} as returned)
 
 type props = {
-    children?:ReactNode
+    children?: ReactNode
+}
+type returned = {
+    productCount: Array<{}>,
+    setProductCount: React.Dispatch<React.SetStateAction<{}[]>>
+
+
+
+
 }
 
-
-export const CartProvider = ({ children }:props) => {
+export const CartProvider = ({ children }: props) => {
     const [productCount, setProductCount] = useState(new Array<{}>)
     useEffect(() => {
         console.log(productCount);
-        
-    },[productCount])
+
+    }, [productCount])
 
     return (
-        <CartContext.Provider value= {
-            [productCount, setProductCount]
+        <CartContext.Provider value={
+            { productCount: productCount, setProductCount: setProductCount } as returned
         }>
             {children}
         </CartContext.Provider>

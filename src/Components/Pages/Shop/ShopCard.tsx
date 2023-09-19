@@ -1,9 +1,16 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-// import { Product } from "../../Consts/ApiRequests"
+export type Product = {
 
+    category:string,
+     description:string,
+     id:number,
+     image:string,
+     price:number,
+     title:string
+}
  import CartContext from './CartContext'
 export const ShopCard = ({ category, description, id, image, price, title }: Product) => {
-    const [productCount, setProductCount] = useContext(CartContext)
+    const {productCount, setProductCount} = useContext(CartContext)
     const actualProduct = {
         id: id,
         title: title,
@@ -13,20 +20,20 @@ export const ShopCard = ({ category, description, id, image, price, title }: Pro
         category: category
     }
     const handleClick = () => {
-        isAlready?setProductCount(productCount.filter((el:Product) => el.id != id)):setProductCount([...productCount, actualProduct])
+        isAlready?setProductCount(productCount.filter((el) => (el as Product).id != id)):setProductCount([...productCount, actualProduct])
     }
     const [isAlready, setIsAlready] = useState(false)
     const Article = useRef(null)
     useEffect(() => {
-        setIsAlready(productCount.some((el:Product) => el.id == id))
+        setIsAlready(productCount.some((el) => (el as Product).id == id))
     }, [productCount])
     useEffect(() => {
         if(isAlready){
-            Article.current.classList.replace("to-[#000]", "to-[#277]")
-            Article.current.classList.replace("from-[#00007777]", "from-[#00000077]")
+            (Article.current!! as HTMLElement).classList.replace("to-[#000]", "to-[#277]");
+            (Article.current!! as HTMLElement).classList.replace("from-[#00007777]", "from-[#00000077]");
         }else {
-            Article.current.classList.replace("to-[#277]", "to-[#000]")
-            Article.current.classList.replace("from-[#00000077]", "from-[#00007777]")
+            (Article.current!! as HTMLElement).classList.replace("to-[#277]", "to-[#000]");
+            (Article.current!! as HTMLElement).classList.replace("from-[#00000077]", "from-[#00007777]");
         }
 
     },[isAlready])
